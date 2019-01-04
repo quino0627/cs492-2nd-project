@@ -3,6 +3,7 @@ package com.example.quino0627.mastagram
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.ActionBar
 import android.util.Log
 import kotlinx.android.synthetic.main.activity_upload_post.*
 
