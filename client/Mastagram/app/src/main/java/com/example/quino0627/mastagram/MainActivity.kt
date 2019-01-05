@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.view.ViewPager
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
@@ -47,6 +48,9 @@ class MainActivity : AppCompatActivity() {
             val loginIntent = Intent(this@MainActivity, LoginActivity::class.java)
             startActivity(loginIntent)
         }
+
+        var userId = accessToken.userId
+        Log.d("USER ID IS ", userId)
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
