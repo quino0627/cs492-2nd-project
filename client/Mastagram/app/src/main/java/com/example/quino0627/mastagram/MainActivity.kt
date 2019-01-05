@@ -1,6 +1,7 @@
 package com.example.quino0627.mastagram
 
 import android.Manifest
+import android.content.Intent
 import android.support.design.widget.TabLayout
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
@@ -16,6 +17,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import com.facebook.AccessToken
 
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -37,6 +39,14 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+
+        var accessToken = AccessToken.getCurrentAccessToken()
+        var isLogedIn = accessToken != null && !accessToken.isExpired()
+        if (!isLogedIn) {
+            val loginIntent = Intent(this@MainActivity, LoginActivity::class.java)
+            startActivity(loginIntent)
+        }
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
