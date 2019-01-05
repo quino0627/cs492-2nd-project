@@ -56,7 +56,7 @@
             tools:layout_editor_absoluteX="0dp">
 
         <TextView
-                android:id="@+id/alt1"
+                android:id="@+id/tag1"
                 android:layout_width="0dp"
                 android:layout_height="30dp"
                 android:layout_weight="1"
@@ -67,7 +67,7 @@
                 android:background="@drawable/rounded_corner"/>
 
         <TextView
-                android:id="@+id/alt2"
+                android:id="@+id/tag2"
                 android:layout_width="0dp"
                 android:layout_height="30dp"
                 android:layout_weight="1"
@@ -78,7 +78,7 @@
                 android:background="@drawable/rounded_corner"/>
 
         <TextView
-                android:id="@+id/alt3"
+                android:id="@+id/tag3"
                 android:layout_width="0dp"
                 android:layout_height="30dp"
                 android:layout_weight="1"
@@ -100,7 +100,7 @@
             android:orientation="horizontal"
     >
         <EditText
-                android:id="@+id/editText"
+                android:id="@+id/editContent"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
@@ -119,6 +119,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-        <Button android:id="@+id/buttonClear" android:textColor="@android:color/white" android:textSize="16sp" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:background="@drawable/rounded_corner_submit" android:text="UPLOAD"/>
+        <Button android:id="@+id/upload_btn" android:textColor="@android:color/white" android:textSize="16sp" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:background="@drawable/rounded_corner_submit" android:text="UPLOAD"/>
     </LinearLayout>
 </LinearLayout>
