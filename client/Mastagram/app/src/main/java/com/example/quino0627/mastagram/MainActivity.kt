@@ -1,25 +1,33 @@
 package com.example.quino0627.mastagram
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.support.design.widget.TabLayout
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
-import android.support.v4.view.ViewPager
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
-import android.view.LayoutInflater
+import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.widget.LinearLayout
+import com.example.quino0627.mastagram.Login.LoginActivity
+import com.example.quino0627.mastagram.Model.Post
+import com.example.quino0627.mastagram.Model.RegisterCheck
 import com.facebook.AccessToken
 
 import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.support.v4.toast
+import org.jetbrains.anko.toast
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
@@ -35,18 +43,43 @@ class MainActivity : AppCompatActivity() {
     val MULTIPLE_PERMISSIONS = 10;
     val permissions = arrayOf(Manifest.permission.READ_CONTACTS, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CALL_PHONE, Manifest.permission.SEND_SMS, Manifest.permission.WRITE_EXTERNAL_STORAGE)
 
+    lateinit var retrofitApi: RetrofitApi
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
+        retrofitApi = APIUtils.getUserService()
         var accessToken = AccessToken.getCurrentAccessToken()
         var isLogedIn = accessToken != null && !accessToken.isExpired()
         if (!isLogedIn) {
             val loginIntent = Intent(this@MainActivity, LoginActivity::class.java)
             startActivity(loginIntent)
         }
+        var userId = accessToken.userId //이게 디비에 올라가서 유저_id 가 되고 이걸로 유저를 식별 유닉!
+        Log.d("THIS IS USERID", userId.toString())
+
+        var call = retrofitApi.isRegistered(userId)
+        call.enqueue(object: Callback<RegisterCheck> {
+            override fun onResponse(call: Call<RegisterCheck>, response: Response<RegisterCheck>) {
+                if (response.isSuccessful()){
+                    Log.d("userId is ",userId)
+                    Log.d("RESULT IS?" , response.body()!!.result.toString())
+                    if (response.body()!!.result == false){
+                        val registerIntent = Intent(this@MainActivity, RegisterActivity::class.java)
+                        startActivity(registerIntent)
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<RegisterCheck>, t: Throwable) {
+                Log.e("fail to get BOOLEAN", t.message)
+            }
+
+        })
+//        var call = retrofitApi.posts
+//        call.enqueue()
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
