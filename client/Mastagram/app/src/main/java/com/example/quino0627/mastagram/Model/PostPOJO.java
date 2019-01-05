@@ -1,40 +1,29 @@
 package com.example.quino0627.mastagram.Model;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+public class PostPOJO {
 
-public class Post {
-
-    @SerializedName("pictureUrl")
-    @Expose
     private String pictureUrl;
-
-    @SerializedName("uploader")
-    @Expose
-    private String uploader = "woLoginTest";
-
-    @SerializedName("date")
-    @Expose
+    private String uploader;
     private String date;
-
-    @SerializedName("contents")
-    @Expose
     private String contents;
-
-    @SerializedName("tag")
-    @Expose
+    private Integer __v;
     private String[] tag;
 
-    @SerializedName("__v")
-    @Expose
-    private Integer __z = 0;
+    public PostPOJO(String pictureUrl, String uploader, String date, String contents, Integer __v, String[] tag){
+        this.pictureUrl = pictureUrl;
+        this.uploader = uploader;
+        this.date = date;
+        this.contents = contents;
+        this.__v = __v;
+        this.tag = tag;
+    }
 
     public String getPirctueUrl(){
         return pictureUrl;
     }
 
-    public void setPictureUrl(String pictureUrl){
-        this.pictureUrl = pictureUrl;
+    public void setPictureUrl(String picturerUrl){
+        this.pictureUrl = picturerUrl;
     }
 
     public String getUploader(){
@@ -49,7 +38,7 @@ public class Post {
         return date;
     }
 
-    public void setMyDate(String date){
+    public void setMyDate(String uploader){
         this.date = date;
     }
 
@@ -67,5 +56,13 @@ public class Post {
 
     public void setTags(String[] tag){
         this.tag = tag;
+    }
+
+    public Integer get__v(){
+        return __v;
+    }
+
+    public void set__v(Integer __v){
+        this.__v = __v;
     }
 }

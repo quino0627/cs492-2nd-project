@@ -68,9 +68,6 @@ class UploadPostActivity : AppCompatActivity() {
 
                 var bitmap: Bitmap? = null
 
-//                val result = async(CommonPool){
-//
-//                }
 
                     try {
                         Log.d("I'm IN TRY", (bitmap==null).toString())
@@ -83,23 +80,12 @@ class UploadPostActivity : AppCompatActivity() {
 
                     toast("CLICKED")
                     var post = Post()
-                    post.setPicturerUrl(encoder(bitmap))
+                    post.setPictureUrl(encoder(bitmap))
                     post.setTags(arrayOf(tag1.text.toString(), tag2.text.toString(), tag3.text.toString()))
                     post.myDate = "20181010"
                     post.contents = editContent.text.toString()
                     addPost(post)
 
-
-
-
-//                toast("CLICKED")
-//                var post = Post()
-//                post.setPicturerUrl(encoder(bitmap))
-//                post.setTags(arrayOf(tag1.text.toString(), tag2.text.toString(), tag3.text.toString()))
-//                post.myDate = "20181010"
-//                post.contents = editContent.text.toString()
-//
-//                addPost(post)
             }
         })
     }
