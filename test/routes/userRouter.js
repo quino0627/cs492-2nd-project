@@ -60,7 +60,7 @@ module.exports = function (app, User) {
 
     //GET ALL USERS
     app.get('/api/users/all', function (req, res) {
-        User.find(function (err, users) {
+        User.find(null, { user_id:1, name:1, phone:1, friends:1},function (err, users) {
             if (err) return res.status(500).send({ error: 'database failure' });
             res.json(users);
             console.log(res.toString() + "client request getAllUsers")
@@ -68,10 +68,10 @@ module.exports = function (app, User) {
     });
     //GET ONE's FREINDS LIST
     app.get('/api/users/friend_list/:user_id', function (req, res) {
-        User.find({ user_id: req.params.user_id }, { user_id: 1, friends: 1 }, function (err, users) {
+        User.find({ user_id: req.params.user_id }, { friends: 1, _id:0 }, function (err, users) {
             if (err) return res.status(500).send({ error: err });
             if (users.length === 0) return res.status(404).json({ error: 'user not found' });
-            res.json(users.friends);
+            res.json(users[0]);
         })
     });
 
