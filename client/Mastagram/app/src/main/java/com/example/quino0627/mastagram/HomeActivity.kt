@@ -48,7 +48,7 @@ class HomeActivity: Fragment(){
                 if (response.isSuccessful){
                     Log.d("IN THE IF", "asdf")
                     postList = response.body() as MutableList<Post>
-
+                    postList.reverse()
                     toast("Post Load Successfully!")
                     val adapter = PostItemAdapter(postList, (activity as Context?)!!)
                     val formanage = LinearLayoutManager(activity, LinearLayout.VERTICAL, false)
