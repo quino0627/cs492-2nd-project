@@ -23,9 +23,9 @@ import java.io.IOException
 class RegisterActivity : AppCompatActivity() {
 
     lateinit var retrofitApi:RetrofitApi
-    lateinit var registerBtn:Button
-    lateinit var registerName:EditText
-    lateinit var registerPhone:EditText
+//    lateinit var registerBtn:Button
+//    lateinit var registerName:EditText
+//    lateinit var registerPhone:EditText
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,9 +35,9 @@ class RegisterActivity : AppCompatActivity() {
         var intent = intent;
         var user_id = intent.extras.getString("user_id")
         Log.e("FUCKINGUSERID", user_id)
-        registerBtn = findViewById(R.id.register_btn)
-        registerName = findViewById(R.id.register_name)
-        registerPhone = findViewById(R.id.register_phone)
+        var registerBtn = findViewById<Button>(R.id.register_btn)
+        var registerName = findViewById<EditText>(R.id.register_name)
+        var registerPhone = findViewById<EditText>(R.id.register_phone)
         retrofitApi = APIUtils.getUserService()
 
         //var accessToken = AccessToken.getCurrentAccessToken()
@@ -45,21 +45,26 @@ class RegisterActivity : AppCompatActivity() {
 
 
         var user1 = User()
-        var userId1 = UserId()
-        var name1 = Name()
-        var phone1 = Phone()
-        userId1.type = user_id
-        name1.type = registerName.text.toString()
-        phone1.type = registerPhone.text.toString()
-        user1.userId = userId1
-        user1.phone = phone1
-        user1.name = name1
-//        user1.userId.type = user_id.toString()
-//        user1.name.type = registerName.text.toString()
-//        user1.phone.type = registerPhone.text.toString()
+//        var userId1 = UserId()
+//        var name1 = Name()
+//        var phone1 = Phone()
+//        userId1.type = user_id
+//        name1.type = registerName.text.toString()
+//        phone1.type = registerPhone.text.toString()
+//        user1.userId = userId1
+//        user1.phone = phone1
+//        user1.name = name1
+
 
         registerBtn.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
+
+                Log.e("registerName", registerName.text.toString())
+                Log.e("registerName", registerPhone.text.toString())
+                user1.userId = user_id.toString()
+                user1.name = registerName.text.toString()
+                user1.phone = registerPhone.text.toString()
+
                 val call = retrofitApi.addUser(user1)
                 call.enqueue(object: Callback<User> {
                     override fun onFailure(call: Call<User>, t: Throwable) {
@@ -69,6 +74,8 @@ class RegisterActivity : AppCompatActivity() {
                     override fun onResponse(call: Call<User>, response: Response<User>) {
                         if(response.isSuccessful()){
                             toast("User Registered Successfully!")
+                            Log.e("CALL", call.toString())
+                            finish()
                         }
                     }
 

@@ -9,9 +9,13 @@ public class Post {
     @Expose
     private String pictureUrl;
 
-    @SerializedName("uploader")
+    @SerializedName("uploader_name")
     @Expose
-    private String uploader = "woLoginTest";
+    private String uploader_name;
+
+    @SerializedName("uploader_id")
+    @Expose
+    private String uploader_id;
 
     @SerializedName("date")
     @Expose
@@ -37,12 +41,20 @@ public class Post {
         this.pictureUrl = pictureUrl;
     }
 
-    public String getUploader(){
-        return uploader;
+    public String getUploader_name(){
+        return uploader_name;
     }
 
-    public void setUploader(String uploader){
-        this.uploader = uploader;
+    public void setUploader_name(String uploader_name){
+        this.uploader_name = uploader_name;
+    }
+
+    public String getUploader_id(){
+        return uploader_id;
+    }
+
+    public void setUploader_id(String uploader_id){
+        this.uploader_id = uploader_id;
     }
 
     public String getMyDate(){

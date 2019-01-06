@@ -7,38 +7,40 @@ public class User {
 
     @SerializedName("user_id")
     @Expose
-    private UserId userId;
+    private String userId;
     @SerializedName("name")
     @Expose
-    private Name name;
+    private String name;
     @SerializedName("phone")
     @Expose
-    private Phone phone;
+    private String phone;
     @SerializedName("friends")
     @Expose
     private String[] friends;
 
-    public UserId getUserId() {
+
+
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(UserId userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
-    public Name getName() {
+    public String getName() {
         return name;
     }
 
-    public void setName(Name name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public Phone getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(Phone phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 

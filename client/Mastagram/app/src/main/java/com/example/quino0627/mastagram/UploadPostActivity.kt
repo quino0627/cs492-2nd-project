@@ -25,7 +25,7 @@ import android.content.Intent
 import android.provider.MediaStore.Images.Media.getBitmap
 import java.io.FileNotFoundException
 import java.io.IOException
-
+import com.example.quino0627.mastagram.MainActivity
 import java.io.ByteArrayOutputStream
 
 
@@ -80,9 +80,9 @@ class UploadPostActivity : AppCompatActivity() {
 
                     toast("CLICKED")
                     var post = Post()
+                    post.uploader_id = MainActivity.myFBUserId
                     post.setPictureUrl(encoder(bitmap))
                     post.setTags(arrayOf(tag1.text.toString(), tag2.text.toString(), tag3.text.toString()))
-                    post.myDate = "20181010"
                     post.contents = editContent.text.toString()
                     addPost(post)
 

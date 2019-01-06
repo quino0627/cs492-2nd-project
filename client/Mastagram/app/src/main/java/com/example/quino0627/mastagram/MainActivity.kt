@@ -47,7 +47,6 @@ class MainActivity : AppCompatActivity() {
     lateinit var callbackManager: CallbackManager
     lateinit var retrofitApi: RetrofitApi
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -61,10 +60,13 @@ class MainActivity : AppCompatActivity() {
         var accessToken = AccessToken.getCurrentAccessToken()
         var isLogedIn = accessToken != null && !accessToken.isExpired
         Log.d("ISLOGEDIN IS" , isLogedIn.toString())
-        if (!isLogedIn) {
-            val loginIntent = Intent(this@MainActivity, LoginActivity::class.java)
-            startActivity(loginIntent)
-        }
+//        if (!isLogedIn) {
+//            val loginIntent = Intent(this@MainActivity, LoginActivity::class.java)
+//            startActivity(loginIntent)
+//        }
+//        else{
+//            Companion.myFBUserId = accessToken.userId
+//        }
 //
 //        var userId = accessToken.userId //이게 디비에 올라가서 유저_id 가 되고 이걸로 유저를 식별 유닉!
 //        Log.d("THIS IS USERID", userId.toString())
@@ -101,6 +103,19 @@ class MainActivity : AppCompatActivity() {
 
         ActivityCompat.requestPermissions(this, permissions, MULTIPLE_PERMISSIONS)
 
+    }
+
+    override fun onStart() {
+        super.onStart()
+        var accessToken = AccessToken.getCurrentAccessToken()
+        var isLogedIn = accessToken != null && !accessToken.isExpired
+        if (!isLogedIn) {
+            val loginIntent = Intent(this@MainActivity, LoginActivity::class.java)
+            startActivity(loginIntent)
+        }
+        else{
+            Companion.myFBUserId = accessToken.userId
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -164,8 +179,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
-
+    companion object {
+        var myFBUserId:String = "DEFAULT"
+    }
 
 
 }

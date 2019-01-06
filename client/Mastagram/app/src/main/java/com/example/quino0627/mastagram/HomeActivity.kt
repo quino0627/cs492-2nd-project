@@ -32,7 +32,7 @@ class HomeActivity: Fragment(){
         val rootView = inflater.inflate(R.layout.fragment_home, container, false)
         val recyclerView = rootView.findViewById<RecyclerView>(R.id.home_recycler_view) as RecyclerView
         var initialPost = Post()
-        initialPost.myDate = "20181010"
+//        initialPost.myDate = "20181010"
         initialPost.contents = "This is initial CONTENT"
         var list2 = listOf<Post>(initialPost)
         postList = list2.toMutableList()
@@ -64,7 +64,6 @@ class HomeActivity: Fragment(){
         })
 
 
-        Log.d("asdf","asdf")
         return rootView
     }
 

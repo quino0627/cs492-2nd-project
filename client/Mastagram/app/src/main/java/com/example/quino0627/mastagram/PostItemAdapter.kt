@@ -24,7 +24,7 @@ class PostItemAdapter(val postList: List<Post>, val context: Context):RecyclerVi
     }
 
     override fun onBindViewHolder(p0: ViewHolder, p1: Int) {
-        p0.postUserName.setText(postList.get(p1).uploader)
+        p0.postUserName.setText(postList.get(p1).uploader_name)
         p0.postContent.setText(postList.get(p1).contents)
         Glide.with(context).load("http://143.248.140.106:1080/"+postList.get(p1).pirctueUrl).into(p0.postImage)
         //Image need to implement

@@ -61,6 +61,7 @@ public class LoginActivity extends AppCompatActivity {
                 AccessToken accessToken = AccessToken.getCurrentAccessToken();
 
                 final String userId = accessToken.getUserId(); //이게 디비에 올라가서 유저_id 가 되고 이걸로 유저를 식별 유닉!
+
                 Log.d("THIS IS USERID", userId.toString());
 
                 final Call<RegisterCheck> call = retrofitApi.isRegistered(userId);
