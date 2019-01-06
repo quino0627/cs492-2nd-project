@@ -105,6 +105,13 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        var tabLayout : TabLayout = findViewById(R.id.tabs)
+        val tab = tabLayout.getTabAt(0)
+        tab!!.select()
+    }
+
     override fun onStart() {
         super.onStart()
         var accessToken = AccessToken.getCurrentAccessToken()

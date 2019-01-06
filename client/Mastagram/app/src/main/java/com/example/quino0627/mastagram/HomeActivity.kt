@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import com.bumptech.glide.Glide
 import com.example.quino0627.mastagram.Model.Post
+import kotlinx.android.synthetic.main.fragment_home.*
 import org.jetbrains.anko.support.v4.toast
 import org.jetbrains.anko.toast
 import retrofit2.Call
@@ -38,6 +39,30 @@ class HomeActivity: Fragment(){
         postList = list2.toMutableList()
         postList.add(initialPost)
         //getPostsList()
+
+
+//        var call = retrofitApi.getTimeLine(MainActivity.myFBUserId)
+//        call.enqueue(object:Callback<List<Post>>{
+//            override fun onResponse(call: Call<List<Post>>, response: Response<List<Post>>) {
+//                Log.d("IN THE CALLBACK", "asdf")
+//                if (response.isSuccessful){
+//                    Log.d("IN THE IF", "asdf")
+//                    postList = response.body() as MutableList<Post>
+//                    postList.reverse()
+//                    toast("Post Load Successfully!")
+//                   // Log.e("ASDFASDF",postList[0].uploader_name.toString())
+//                    val adapter = PostItemAdapter(postList, (activity as Context?)!!)
+//                    val formanage = LinearLayoutManager(activity, LinearLayout.VERTICAL, false)
+//                    recyclerView.layoutManager = formanage
+//                    recyclerView.adapter = adapter
+//                    recyclerView.setHasFixedSize(false)
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<List<Post>>, t: Throwable) {
+//                Log.e("Error: " ,t.message)
+//            }
+//        })
 
 
 
@@ -90,5 +115,31 @@ class HomeActivity: Fragment(){
 //        })
 //        Log.d("AFTER THE CALL", "CALL")
 //    }
+
+    override fun onResume() {
+        super.onResume()
+        val recyclerView = home_recycler_view
+        var call = retrofitApi.posts
+        call.enqueue(object:Callback<List<Post>>{
+            override fun onResponse(call: Call<List<Post>>, response: Response<List<Post>>) {
+                Log.d("IN THE CALLBACK", "asdf")
+                if (response.isSuccessful){
+                    Log.d("IN THE IF", "asdf")
+                    postList = response.body() as MutableList<Post>
+                    postList.reverse()
+                    toast("Post Load Successfully!")
+                    val adapter = PostItemAdapter(postList, (activity as Context?)!!)
+                    val formanage = LinearLayoutManager(activity, LinearLayout.VERTICAL, false)
+                    recyclerView.layoutManager = formanage
+                    recyclerView.adapter = adapter
+                    recyclerView.setHasFixedSize(false)
+                }
+            }
+
+            override fun onFailure(call: Call<List<Post>>, t: Throwable) {
+                Log.e("Error: " ,t.message)
+            }
+        })
+    }
 
 }

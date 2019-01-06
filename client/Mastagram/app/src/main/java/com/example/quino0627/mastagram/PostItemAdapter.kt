@@ -2,6 +2,7 @@ package com.example.quino0627.mastagram
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,6 +26,7 @@ class PostItemAdapter(val postList: List<Post>, val context: Context):RecyclerVi
 
     override fun onBindViewHolder(p0: ViewHolder, p1: Int) {
         p0.postUserName.setText(postList.get(p1).uploader_name)
+//        Log.e("ASDF",postList.get(p1).uploader_name)
         p0.postContent.setText(postList.get(p1).contents)
         Glide.with(context).load("http://143.248.140.106:1080/"+postList.get(p1).pirctueUrl).into(p0.postImage)
         //Image need to implement

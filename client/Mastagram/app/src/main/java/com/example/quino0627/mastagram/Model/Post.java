@@ -73,8 +73,8 @@ public class Post {
         this.contents = contents;
     }
 
-    public String getTags(){
-        return contents;
+    public String[] getTags(){
+        return tag;
     }
 
     public void setTags(String[] tag){

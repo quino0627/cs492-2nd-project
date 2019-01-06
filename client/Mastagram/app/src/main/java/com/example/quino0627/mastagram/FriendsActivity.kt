@@ -17,6 +17,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import com.example.quino0627.mastagram.Model.Post
 import com.example.quino0627.mastagram.Model.User
 import com.facebook.Profile
 import kotlinx.android.synthetic.main.post_view.*
@@ -27,7 +28,10 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class FriendsActivity: Fragment(){
+class FriendsActivity: Fragment(), FriendsAdapter.onItemSelectedListener{
+    override fun onItemSelected(selectedFriend: User) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
     companion object {
         var friendsList: ArrayList<User> = ArrayList()
@@ -42,17 +46,54 @@ class FriendsActivity: Fragment(){
         val rootView = inflater!!.inflate(R.layout.fragment_friends, container, false)
         val recyclerView = rootView.findViewById<RecyclerView>(R.id.friends_recycler_view) as RecyclerView
 
-        friendsList = getFriends()
 
-        val adapter = FriendsAdapter(friendsList)
-        val formanage = LinearLayoutManager(activity, LinearLayout.VERTICAL, false)
-        recyclerView.layoutManager = formanage
-        recyclerView.adapter = adapter
-        recyclerView.setHasFixedSize(false)
+        var asdf = getFriends()
+        var tempList2 = ArrayList<User>()
+        retrofitApi = APIUtils.getUserService()
+        val call2 = retrofitApi.getFriendsList(MainActivity.myFBUserId)
+        Log.e("NIKO", MainActivity.myFBUserId)
+        call2.enqueue(object: Callback<List<User>> {
+
+            override fun onFailure(call: Call<List<User>>, t: Throwable) {
+                Log.e("ERROROROR: ", t.message)
+            }
+
+            override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
+                if(response.isSuccessful){
+                    Log.e("SUCCESS", "SUCCESs")
+                    tempList2 = response.body() as ArrayList<User>
+
+                    friendsList = tempList2
+                    friendsList.addAll(asdf)
+                    Log.e("BANANA", "BANANA")
+                    val adapter = FriendsAdapter(friendsList)
+                    val formanage = LinearLayoutManager(activity, LinearLayout.VERTICAL, false)
+                    recyclerView.layoutManager = formanage
+                    recyclerView.adapter = adapter
+                    recyclerView.setHasFixedSize(false)
+
+                }
+            }
+
+        })
+
+//        val adapter = FriendsAdapter(friendsList)
+//        val formanage = LinearLayoutManager(activity, LinearLayout.VERTICAL, false)
+//        recyclerView.layoutManager = formanage
+//        recyclerView.adapter = adapter
+//        recyclerView.setHasFixedSize(false)
+
+//        Log.e("BANANA", "BANANA")
+//        val adapter = FriendsAdapter(friendsList)
+//        val formanage = LinearLayoutManager(activity, LinearLayout.VERTICAL, false)
+//        recyclerView.layoutManager = formanage
+//        recyclerView.adapter = adapter
+//        recyclerView.setHasFixedSize(false)
 
         var myNameTextView = rootView.findViewById<AppCompatTextView>(R.id.my_name)
         var myPhoneTextView = rootView.findViewById<AppCompatTextView>(R.id.my_phone)
         var myProfileImageView = rootView.findViewById<ImageView>(R.id.my_profile_image)
+
         retrofitApi = APIUtils.getUserService()
         val call = retrofitApi.getUser(MainActivity.myFBUserId)
         call.enqueue(object: Callback<User> {
@@ -107,8 +148,16 @@ class FriendsActivity: Fragment(){
             toast("No Contacts Availiable!")
         }
         cursor.close()
+
+
+        Log.e("APPLE", "APPLE")
+
+
+
         return tempList
     }
+
+
 }
 
 

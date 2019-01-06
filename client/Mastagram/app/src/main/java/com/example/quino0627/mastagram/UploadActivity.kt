@@ -77,4 +77,6 @@ class UploadActivity: Fragment(), UploadAdapter.OnItemSelectedListener{
         Log.d("isAdapterExist?",adapter.toString())
         return photoList
     }
+
+
 }

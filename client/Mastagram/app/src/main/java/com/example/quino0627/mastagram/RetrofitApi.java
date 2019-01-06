@@ -30,4 +30,15 @@ public interface RetrofitApi {
  @GET("api/users/info/{user_id}")
     Call<User> getUser(@Path("user_id") String user_id);
 
+ //GET/api/users/friends_list/:user_id
+    // 유저 아이디를 주고, 그 유저의 친구(User model) 리스트를 받음
+
+ @GET("api/users/friends_list/{user_id}")
+    Call<List<User>> getFriendsList(@Path("user_id") String user_id);
+
+
+ //GET/api/posts/ones_timeline/:user_id
+    //친구들의 포스트를 받음(특정 유저의 타임라인)
+  @GET("api/posts/ones_timeline/{user_id}")
+    Call<List<Post>> getTimeLine(@Path("user_id") String user_id);
 }

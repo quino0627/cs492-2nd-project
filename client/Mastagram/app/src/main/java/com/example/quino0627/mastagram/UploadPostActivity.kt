@@ -23,6 +23,7 @@ import android.provider.MediaStore
 import android.graphics.Bitmap
 import android.content.Intent
 import android.provider.MediaStore.Images.Media.getBitmap
+import android.support.design.widget.TabLayout
 import java.io.FileNotFoundException
 import java.io.IOException
 import com.example.quino0627.mastagram.MainActivity
@@ -101,6 +102,11 @@ class UploadPostActivity : AppCompatActivity() {
             override fun onResponse(call: Call<Post>, response: Response<Post>) {
                 if(response.isSuccessful()){
                     toast("Post Uploaded Successfully!")
+                    //int position = 1;
+                    //getSupportActionBar().setSelectedNavigationItem(position);
+
+
+                    finish()
                 }
             }
 

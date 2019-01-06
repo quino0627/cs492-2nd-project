@@ -11,9 +11,11 @@ public class User {
     @SerializedName("name")
     @Expose
     public String name;
+
     @SerializedName("phone")
     @Expose
     public String phone;
+
     @SerializedName("friends")
     @Expose
     public String[] friends;
