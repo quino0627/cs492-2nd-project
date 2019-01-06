@@ -7,16 +7,16 @@ public class User {
 
     @SerializedName("user_id")
     @Expose
-    private String userId;
+    public String userId;
     @SerializedName("name")
     @Expose
-    private String name;
+    public String name;
     @SerializedName("phone")
     @Expose
-    private String phone;
+    public String phone;
     @SerializedName("friends")
     @Expose
-    private String[] friends;
+    public String[] friends;
 
 
 
