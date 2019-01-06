@@ -1,9 +1,10 @@
-package com.example.quino0627.mastagram;
+package com.example.quino0627.mastagram.Login;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.example.quino0627.mastagram.MainActivity;
 import com.facebook.AccessToken;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
