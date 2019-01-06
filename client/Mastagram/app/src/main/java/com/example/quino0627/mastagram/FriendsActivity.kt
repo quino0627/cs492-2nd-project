@@ -1,6 +1,7 @@
 package com.example.quino0627.mastagram
 
 import android.content.ContentResolver
+import android.media.Image
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.support.v4.app.Fragment
@@ -8,15 +9,23 @@ import android.support.v7.widget.AppCompatTextView
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.RecyclerView.Adapter
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.example.quino0627.mastagram.Model.User
+import com.facebook.Profile
 import kotlinx.android.synthetic.main.post_view.*
+import org.jetbrains.anko.image
 import org.jetbrains.anko.support.v4.toast
+import org.jetbrains.anko.toast
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class FriendsActivity: Fragment(){
 
@@ -24,6 +33,8 @@ class FriendsActivity: Fragment(){
         var friendsList: ArrayList<User> = ArrayList()
         var adapder : FriendsAdapter = FriendsAdapter(friendsList)
     }
+
+    lateinit var retrofitApi:RetrofitApi
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         //return inflater.inflate(R.layout.fragment_friends, container, false)
@@ -40,7 +51,24 @@ class FriendsActivity: Fragment(){
         recyclerView.setHasFixedSize(false)
 
         var myNameTextView = rootView.findViewById<AppCompatTextView>(R.id.my_name)
-        var myPhoneTextView = rootView.findViewById<AppCompatTextView>(R.id.my_name)
+        var myPhoneTextView = rootView.findViewById<AppCompatTextView>(R.id.my_phone)
+        var myProfileImageView = rootView.findViewById<ImageView>(R.id.my_profile_image)
+        retrofitApi = APIUtils.getUserService()
+        val call = retrofitApi.getUser(MainActivity.myFBUserId)
+        call.enqueue(object: Callback<User> {
+            override fun onFailure(call: Call<User>, t: Throwable) {
+                Log.e("ERROR: ", t.message)
+            }
+
+            override fun onResponse(call: Call<User>, response: Response<User>) {
+                if(response.isSuccessful()){
+                    myNameTextView.text = (response.body() as User).name
+                    myPhoneTextView.text = (response.body() as User).phone
+                }
+            }
+
+        })
+
 
         return rootView
 
@@ -82,3 +110,5 @@ class FriendsActivity: Fragment(){
         return tempList
     }
 }
+
+

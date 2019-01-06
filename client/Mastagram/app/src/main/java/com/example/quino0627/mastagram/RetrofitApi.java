@@ -25,4 +25,9 @@ public interface RetrofitApi {
  @POST("api/users/create")
     Call<User> addUser(@Body User user);
 
+ //GET , api/users/info/:user_id 에여
+
+ @GET("api/users/info/{user_id}")
+    Call<User> getUser(@Path("user_id") String user_id);
+
 }
