@@ -17,6 +17,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import com.example.quino0627.mastagram.Model.Friend
 import com.example.quino0627.mastagram.Model.Post
 import com.example.quino0627.mastagram.Model.User
 import com.facebook.Profile
@@ -34,8 +35,8 @@ class FriendsActivity: Fragment(), FriendsAdapter.onItemSelectedListener{
     }
 
     companion object {
-        var friendsList: ArrayList<User> = ArrayList()
-        var adapder : FriendsAdapter = FriendsAdapter(friendsList)
+        var showArrayList = ArrayList<Friend>()
+        var adapder : FriendsAdapter = FriendsAdapter(showArrayList)
     }
 
     lateinit var retrofitApi:RetrofitApi
@@ -47,35 +48,86 @@ class FriendsActivity: Fragment(), FriendsAdapter.onItemSelectedListener{
         val recyclerView = rootView.findViewById<RecyclerView>(R.id.friends_recycler_view) as RecyclerView
 
 
-        var asdf = getFriends()
-        var tempList2 = ArrayList<User>()
-        retrofitApi = APIUtils.getUserService()
-        val call2 = retrofitApi.getFriendsList(MainActivity.myFBUserId)
-        Log.e("NIKO", MainActivity.myFBUserId)
-        call2.enqueue(object: Callback<List<User>> {
+        var myFriends = ArrayList<User>()
+        var allUsers = ArrayList<User>()
 
+        var myFriendsFriend = ArrayList<Friend>()
+        var myAllUsersFriend = ArrayList<Friend>()
+
+
+        retrofitApi = APIUtils.getUserService()
+
+        //Friend 형식의 ArrayList를 만듭니다.
+
+        val call3 = retrofitApi.getFriendsList(MainActivity.myFBUserId)
+        call3.enqueue(object: Callback<List<User>>{
             override fun onFailure(call: Call<List<User>>, t: Throwable) {
-                Log.e("ERROROROR: ", t.message)
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
 
             override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
-                if(response.isSuccessful){
-                    Log.e("SUCCESS", "SUCCESs")
-                    tempList2 = response.body() as ArrayList<User>
-
-                    friendsList = tempList2
-                    friendsList.addAll(asdf)
-                    Log.e("BANANA", "BANANA")
-                    val adapter = FriendsAdapter(friendsList)
-                    val formanage = LinearLayoutManager(activity, LinearLayout.VERTICAL, false)
-                    recyclerView.layoutManager = formanage
-                    recyclerView.adapter = adapter
-                    recyclerView.setHasFixedSize(false)
-
+                myFriends = response.body() as ArrayList<User>
+                //User타입을 Friend타입으로 변경합니다. Real Friend이므로 real_friend 값에 true를 저장합니다.
+                for(i in myFriends){
+                    var tempFriend = Friend()
+                    tempFriend.real_friend = true
+                    tempFriend.userId = i.userId
+                    tempFriend.phone = i.phone
+                    tempFriend.name = i.name
+                    tempFriend.friends = i.friends
+                    myFriendsFriend.add(tempFriend)
                 }
-            }
 
+                val call2 = retrofitApi.allUsers
+                Log.e("NIKO", MainActivity.myFBUserId)
+                call2.enqueue(object: Callback<List<User>> {
+
+                    override fun onFailure(call: Call<List<User>>, t: Throwable) {
+                        Log.e("ERROROROR: ", t.message)
+                    }
+
+                    override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
+                        if(response.isSuccessful){
+                            Log.e("SUCCESS", "SUCCESs")
+                            allUsers = response.body() as ArrayList<User>
+                            for(i in allUsers){
+                                Log.e("IM PRINTING ALL USERS", i.name+i.phone+i.userId)
+                                var temp = myFriends.filter { it.userId == i.userId }
+                                //var temp2 = if(temp != null) temp.single() else
+                                if(temp.isEmpty()){
+                                    //var temp2 = temp.single()
+                                    //Log.e("HE IS NOT MY FRIEND", temp2.name+temp2.userId+temp2.phone)
+                                    var tempFriend = Friend()
+                                    tempFriend.real_friend = false
+                                    tempFriend.userId = i.userId
+                                    tempFriend.phone = i.phone
+                                    tempFriend.name = i.name
+                                    tempFriend.friends = i.friends
+                                    myAllUsersFriend.add(tempFriend)
+                                }
+
+
+                            }
+                            showArrayList.addAll(myFriendsFriend)
+                            showArrayList.addAll(myAllUsersFriend)
+                            Log.e("BANANA", "BANANA")
+                            val adapter = FriendsAdapter(showArrayList)
+                            val formanage = LinearLayoutManager(activity, LinearLayout.VERTICAL, false)
+                            recyclerView.layoutManager = formanage
+                            recyclerView.adapter = adapter
+                            recyclerView.setHasFixedSize(false)
+                            showArrayList = ArrayList(
+
+                            )
+                        }
+                    }
+
+                })
+
+            }
         })
+
+
 
 //        val adapter = FriendsAdapter(friendsList)
 //        val formanage = LinearLayoutManager(activity, LinearLayout.VERTICAL, false)

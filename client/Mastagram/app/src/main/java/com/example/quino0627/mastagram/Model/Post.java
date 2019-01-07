@@ -3,6 +3,8 @@ package com.example.quino0627.mastagram.Model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.lang.reflect.Array;
+
 public class Post {
 
     @SerializedName("pictureUrl")
@@ -27,7 +29,7 @@ public class Post {
 
     @SerializedName("tag")
     @Expose
-    private String[] tag;
+    public String[] tag = {"THIS IS","NOT YET","DEFINED"};
 
     @SerializedName("__v")
     @Expose
