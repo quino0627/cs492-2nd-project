@@ -42,8 +42,8 @@ public interface RetrofitApi {
 //    GET/api/users/all
 //    전체 유저들의 리스트를 반환(parameter x)
 
- @GET("api/users/all")
-    Call<List<User>> getAllUsers();
+ @GET("api/users/all/{user_id}")
+    Call<List<User>> getAllUsers(@Path("user_id") String user_id);
 
  //PUT/api/user/following/:user_id
     //유저 아이디를 받아서 그 유저를 팔로우 하기
@@ -57,4 +57,8 @@ public interface RetrofitApi {
 
     @PUT("api/users/delete_friend/{user_id}")
     Call<User> unFollowFunction(@Path("user_id") String user_id, @Body User toUnFollowUser);
+
+    //GET/api/posts/ones_posts/:user_id
+    @GET("api/posts/ones_posts/{user_id}")
+    Call<List<Post>> getOnesPosts(@Path("user_id") String user_id);
 }

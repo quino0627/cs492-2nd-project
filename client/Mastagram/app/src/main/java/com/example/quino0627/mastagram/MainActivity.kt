@@ -108,8 +108,22 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         var tabLayout : TabLayout = findViewById(R.id.tabs)
-        val tab = tabLayout.getTabAt(0)
-        tab!!.select()
+        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                val position = tab.position
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab) {}
+
+            override fun onTabReselected(tab: TabLayout.Tab) {}
+        })
+
+        if(tabLayout.selectedTabPosition == 1){
+            val tab = tabLayout.getTabAt(0)
+            tab!!.select()
+        }
+
+
     }
 
     override fun onStart() {

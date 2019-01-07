@@ -78,7 +78,7 @@ class FriendsActivity: Fragment(), FriendsAdapter.onItemSelectedListener{
                     myFriendsFriend.add(tempFriend)
                 }
 
-                val call2 = retrofitApi.allUsers
+                val call2 = retrofitApi.getAllUsers(MainActivity.myFBUserId)
                 Log.e("NIKO", MainActivity.myFBUserId)
                 call2.enqueue(object: Callback<List<User>> {
 
@@ -167,47 +167,47 @@ class FriendsActivity: Fragment(), FriendsAdapter.onItemSelectedListener{
 
     }
 
-    private fun getFriends(): ArrayList<User> {
-        val tempList = ArrayList<User>()
-        val resolver: ContentResolver = activity!!.contentResolver
-        var contentResolver = activity!!.contentResolver
-        val cursor = resolver.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, ContactsContract.Contacts.SORT_KEY_PRIMARY)
-
-        if(cursor.count>0){
-            while (cursor.moveToNext()){
-                val id = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID))
-                val name = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))
-                val phoneNumber = (cursor.getString(
-                    cursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER)
-                )).toInt()
-                if (phoneNumber > 0){
-                    val cursorPhone = contentResolver.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=?", arrayOf(id), null)
-                    if(cursorPhone.count>0){
-                        while (cursorPhone.moveToNext()){
-                            val phoneNumValue = cursorPhone.getString(
-                                cursorPhone.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)
-                            )
-                            val tempUser = User()
-                            tempUser.name = name
-                            tempUser.phone = phoneNumValue
-                            tempList.add(tempUser)
-                        }
-                    }
-                    cursorPhone.close()
-                }
-            }
-        } else{
-            toast("No Contacts Availiable!")
-        }
-        cursor.close()
-
-
-        Log.e("APPLE", "APPLE")
-
-
-
-        return tempList
-    }
+//    private fun getFriends(): ArrayList<User> {
+//        val tempList = ArrayList<User>()
+//        val resolver: ContentResolver = activity!!.contentResolver
+//        var contentResolver = activity!!.contentResolver
+//        val cursor = resolver.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, ContactsContract.Contacts.SORT_KEY_PRIMARY)
+//
+//        if(cursor.count>0){
+//            while (cursor.moveToNext()){
+//                val id = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID))
+//                val name = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))
+//                val phoneNumber = (cursor.getString(
+//                    cursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER)
+//                )).toInt()
+//                if (phoneNumber > 0){
+//                    val cursorPhone = contentResolver.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=?", arrayOf(id), null)
+//                    if(cursorPhone.count>0){
+//                        while (cursorPhone.moveToNext()){
+//                            val phoneNumValue = cursorPhone.getString(
+//                                cursorPhone.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)
+//                            )
+//                            val tempUser = User()
+//                            tempUser.name = name
+//                            tempUser.phone = phoneNumValue
+//                            tempList.add(tempUser)
+//                        }
+//                    }
+//                    cursorPhone.close()
+//                }
+//            }
+//        } else{
+//            toast("No Contacts Availiable!")
+//        }
+//        cursor.close()
+//
+//
+//        Log.e("APPLE", "APPLE")
+//
+//
+//
+//        return tempList
+//    }
 
 
 }

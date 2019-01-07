@@ -39,7 +39,7 @@ class UploadPostActivity : AppCompatActivity() {
 //    lateinit var tag2:TextView
 //    lateinit var tag3:TextView
 
-
+    var clicked = false;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_upload_post)
@@ -66,27 +66,28 @@ class UploadPostActivity : AppCompatActivity() {
 
         btnSave.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
+        if(clicked==false) {
+         clicked = true;
+            var bitmap: Bitmap? = null
 
-                var bitmap: Bitmap? = null
 
+            try {
+                Log.d("I'm IN TRY", (bitmap == null).toString())
+                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), picture_uri)
+            } catch (e: FileNotFoundException) {
+                e.printStackTrace()
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
 
-                    try {
-                        Log.d("I'm IN TRY", (bitmap==null).toString())
-                        bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), picture_uri)
-                    } catch (e: FileNotFoundException) {
-                        e.printStackTrace()
-                    } catch (e: IOException) {
-                        e.printStackTrace()
-                    }
-
-                    toast("CLICKED")
-                    var post = Post()
-                    post.uploader_id = MainActivity.myFBUserId
-                    post.setPictureUrl(encoder(bitmap))
-                    post.setTags(arrayOf("I WILL", "IMPLEMENT", "LATER"))
-                    post.contents = editContent.text.toString()
-                    addPost(post)
-
+            toast("CLICKED")
+            var post = Post()
+            post.uploader_id = MainActivity.myFBUserId
+            post.setPictureUrl(encoder(bitmap))
+            post.setTags(arrayOf("I WILL", "IMPLEMENT", "LATER"))
+            post.contents = editContent.text.toString()
+            addPost(post)
+        }
             }
         })
     }
@@ -105,7 +106,7 @@ class UploadPostActivity : AppCompatActivity() {
                     //int position = 1;
                     //getSupportActionBar().setSelectedNavigationItem(position);
 
-
+                    clicked = false;
                     finish()
                 }
             }
