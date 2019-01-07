@@ -67,7 +67,7 @@ class FriendsAdapter(val friendsList: ArrayList<Friend>): RecyclerView.Adapter<F
 
 
                 } else{
-                    imageForFollwing.setImageResource(0)
+                    imageForFollwing.setImageResource(R.drawable.heart_none)
                     friendsList[p1].real_friend = false
                     Log.e("UNFOLLWOING", "!!")
 

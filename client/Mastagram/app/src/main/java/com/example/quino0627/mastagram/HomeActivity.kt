@@ -119,7 +119,7 @@ class HomeActivity: Fragment(){
     override fun onResume() {
         super.onResume()
         val recyclerView = home_recycler_view
-        var call = retrofitApi.posts
+        var call = retrofitApi.getTimeLine(MainActivity.myFBUserId)
         call.enqueue(object:Callback<List<Post>>{
             override fun onResponse(call: Call<List<Post>>, response: Response<List<Post>>) {
                 Log.d("IN THE CALLBACK", "asdf")
@@ -128,6 +128,7 @@ class HomeActivity: Fragment(){
                     postList = response.body() as MutableList<Post>
                     postList.reverse()
                     toast("Post Load Successfully!")
+                    // Log.e("ASDFASDF",postList[0].uploader_name.toString())
                     val adapter = PostItemAdapter(postList, (activity as Context?)!!)
                     val formanage = LinearLayoutManager(activity, LinearLayout.VERTICAL, false)
                     recyclerView.layoutManager = formanage

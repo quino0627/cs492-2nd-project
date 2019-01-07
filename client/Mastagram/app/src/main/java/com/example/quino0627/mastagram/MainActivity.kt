@@ -167,13 +167,16 @@ class MainActivity : AppCompatActivity() {
                 2->{
                     return FriendsActivity()
                 }
+                3->{
+                    return MyPostsActivity()
+                }
                 else -> return null
             }
         }
 
         override fun getCount(): Int {
             // Show 3 total pages.
-            return 3
+            return 4
         }
 
         override fun getPageTitle(position: Int) : CharSequence?{
@@ -181,6 +184,7 @@ class MainActivity : AppCompatActivity() {
                 0 -> return "HOME"
                 1 -> return "UPLOAD"
                 2 -> return "FRIENDS"
+                3->return "MYPOSTS"
             }
             return null
         }

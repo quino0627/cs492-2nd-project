@@ -1,24 +1,16 @@
 package com.example.quino0627.mastagram
 
-import android.content.Context
-import android.graphics.Bitmap
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.MediaStore
 import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
 import com.example.quino0627.mastagram.Model.*
-import com.facebook.AccessToken
-import com.facebook.Profile
 import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.io.FileNotFoundException
-import java.io.IOException
 
 class RegisterActivity : AppCompatActivity() {
 
