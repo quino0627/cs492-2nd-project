@@ -3,7 +3,8 @@ var Schema = mongoose.Schema;
 
 var postSchema = new Schema({
     pictureUrl : String,
-    uploader : String,
+    uploader_id : String,
+    uploader_name: String,
     date : String,
     contents : String,
     tag : [],

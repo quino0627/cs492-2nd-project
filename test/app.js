@@ -1,5 +1,27 @@
 // app.js
 
+// var spawn = require('child_process').spawn,
+// py = spawn('python', ['test.py']),
+// data
+// var {PythonShell} = require('python-shell')
+// var options = {
+
+//   mode: 'text',
+
+//   pythonPath: '',
+
+//   pythonOptions: ['-u'],
+
+//   scriptPath: '/root/workspace/test/python',
+
+//   args: ['value1', 'value2', 'value3']
+
+// };
+// PythonShell.run('test.py', options, function (err, results) {
+//   if (err) throw err;
+//   console.log('results: %j', results);
+// });
+
 // [LOAD PACKAGES]
 var express     = require('express');
 var app         = express();
@@ -10,7 +32,8 @@ var mongoose    = require('mongoose');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser({limit : '50mb'}));
 app.use(bodyParser.json());
-// app.use('/storage', express.static('storage/'));
+app.use('/storage', express.static('storage/'));
+
 
 // [CONFIGURE SERVER PORT]
 var port = process.env.PORT || 80;
@@ -18,11 +41,16 @@ var port = process.env.PORT || 80;
 var User = require('./models/user');
 var Post = require('./models/post');
 
+// MANAMGE SERVER STATE
+// var users = require('./status/connectedUser');
+
+// users.login("testUser");
+
 // [CONFIGURE ROUTER]
-var url;
+// var url;
 var userRouter = require('./routes/userRouter')(app, User);
 var postRouter = require('./routes/postRouter')(app, Post);
-var storageRouter = require('./routes/storageRouter')(app,url);
+
 // [RUN SERVER]
 var server = app.listen(port, function(){
  console.log("Express server has started on port " + port)
@@ -36,5 +64,7 @@ db.once('open', function(){
 });
 
 mongoose.connect('mongodb://localhost:27017/local', { useNewUrlParser: true });
+
+
 
 // ......
