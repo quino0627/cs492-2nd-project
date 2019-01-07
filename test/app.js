@@ -1,5 +1,27 @@
 // app.js
 
+// var spawn = require('child_process').spawn,
+// py = spawn('python', ['test.py']),
+// data
+// var {PythonShell} = require('python-shell')
+// var options = {
+
+//   mode: 'text',
+
+//   pythonPath: '',
+
+//   pythonOptions: ['-u'],
+
+//   scriptPath: '/root/workspace/test/python',
+
+//   args: ['value1', 'value2', 'value3']
+
+// };
+// PythonShell.run('test.py', options, function (err, results) {
+//   if (err) throw err;
+//   console.log('results: %j', results);
+// });
+
 // [LOAD PACKAGES]
 var express     = require('express');
 var app         = express();
@@ -42,5 +64,7 @@ db.once('open', function(){
 });
 
 mongoose.connect('mongodb://localhost:27017/local', { useNewUrlParser: true });
+
+
 
 // ......
