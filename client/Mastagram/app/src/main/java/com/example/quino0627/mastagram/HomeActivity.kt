@@ -41,32 +41,7 @@ class HomeActivity: Fragment(){
         //getPostsList()
 
 
-//        var call = retrofitApi.getTimeLine(MainActivity.myFBUserId)
-//        call.enqueue(object:Callback<List<Post>>{
-//            override fun onResponse(call: Call<List<Post>>, response: Response<List<Post>>) {
-//                Log.d("IN THE CALLBACK", "asdf")
-//                if (response.isSuccessful){
-//                    Log.d("IN THE IF", "asdf")
-//                    postList = response.body() as MutableList<Post>
-//                    postList.reverse()
-//                    toast("Post Load Successfully!")
-//                   // Log.e("ASDFASDF",postList[0].uploader_name.toString())
-//                    val adapter = PostItemAdapter(postList, (activity as Context?)!!)
-//                    val formanage = LinearLayoutManager(activity, LinearLayout.VERTICAL, false)
-//                    recyclerView.layoutManager = formanage
-//                    recyclerView.adapter = adapter
-//                    recyclerView.setHasFixedSize(false)
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<List<Post>>, t: Throwable) {
-//                Log.e("Error: " ,t.message)
-//            }
-//        })
-
-
-
-        var call = retrofitApi.posts
+        var call = retrofitApi.getTimeLine(MainActivity.myFBUserId)
         call.enqueue(object:Callback<List<Post>>{
             override fun onResponse(call: Call<List<Post>>, response: Response<List<Post>>) {
                 Log.d("IN THE CALLBACK", "asdf")
@@ -75,6 +50,7 @@ class HomeActivity: Fragment(){
                     postList = response.body() as MutableList<Post>
                     postList.reverse()
                     toast("Post Load Successfully!")
+                   // Log.e("ASDFASDF",postList[0].uploader_name.toString())
                     val adapter = PostItemAdapter(postList, (activity as Context?)!!)
                     val formanage = LinearLayoutManager(activity, LinearLayout.VERTICAL, false)
                     recyclerView.layoutManager = formanage
@@ -88,6 +64,30 @@ class HomeActivity: Fragment(){
             }
         })
 
+//
+//
+//        var call = retrofitApi.posts
+//        call.enqueue(object:Callback<List<Post>>{
+//            override fun onResponse(call: Call<List<Post>>, response: Response<List<Post>>) {
+//                Log.d("IN THE CALLBACK", "asdf")
+//                if (response.isSuccessful){
+//                    Log.d("IN THE IF", "asdf")
+//                    postList = response.body() as MutableList<Post>
+//                    postList.reverse()
+//                    toast("Post Load Successfully!")
+//                    val adapter = PostItemAdapter(postList, (activity as Context?)!!)
+//                    val formanage = LinearLayoutManager(activity, LinearLayout.VERTICAL, false)
+//                    recyclerView.layoutManager = formanage
+//                    recyclerView.adapter = adapter
+//                    recyclerView.setHasFixedSize(false)
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<List<Post>>, t: Throwable) {
+//                Log.e("Error: " ,t.message)
+//            }
+//        })
+//
 
         return rootView
     }

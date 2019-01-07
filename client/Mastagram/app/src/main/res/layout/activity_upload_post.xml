@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout
+<RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -23,6 +23,7 @@
             android:elevation="4dp"
             android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+
             android:gravity="center"
             android:layout_gravity="center"
     />
@@ -32,8 +33,11 @@
             android:id="@+id/paintViewLayout"
             android:layout_width="match_parent"
             android:background="@drawable/line_top_bottom"
-            android:layout_height="0dp"
-            android:layout_weight="0.8">
+            android:layout_centerHorizontal="true"
+            android:layout_above="@+id/altLayout"
+            android:layout_below="@+id/my_toolbar"
+            android:layout_height="match_parent"
+            >
         <ImageView
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"
@@ -44,6 +48,7 @@
 
     </LinearLayout>
     <LinearLayout
+            android:layout_above="@+id/textLayout"
             android:id="@+id/altLayout"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="10dp"
@@ -55,27 +60,9 @@
             android:layout_marginRight="20dp"
             tools:layout_editor_absoluteX="0dp">
 
-        <TextView
-                android:id="@+id/tag1"
-                android:layout_width="0dp"
-                android:layout_height="30dp"
-                android:layout_weight="1"
-                android:tag="1"
-                android:text="Tag1"
-                android:layout_margin="5dp"
-                android:gravity="center"
-                android:background="@drawable/rounded_corner"/>
 
-        <TextView
-                android:id="@+id/tag2"
-                android:layout_width="0dp"
-                android:layout_height="30dp"
-                android:layout_weight="1"
-                android:tag="2"
-                android:text="Tag2"
-                android:layout_margin="5dp"
-                android:gravity="center"
-                android:background="@drawable/rounded_corner"/>
+
+
 
         <TextView
                 android:id="@+id/tag3"
@@ -83,7 +70,7 @@
                 android:layout_height="30dp"
                 android:layout_weight="1"
                 android:tag="3"
-                android:text="Tag3"
+                android:text="태그가 자동으로 생성됩니다!"
                 android:layout_margin="5dp"
                 android:gravity="center"
                 android:background="@drawable/rounded_corner"/>
@@ -93,6 +80,7 @@
     </LinearLayout>
 
     <LinearLayout
+            android:layout_above="@+id/buttonLayout"
             android:id="@+id/textLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -118,7 +106,8 @@
             android:id="@+id/buttonLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:orientation="horizontal">
         <Button android:id="@+id/upload_btn" android:textColor="@android:color/white" android:textSize="16sp" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:background="@drawable/rounded_corner_submit" android:text="UPLOAD"/>
     </LinearLayout>
-</LinearLayout>
+</RelativeLayout>

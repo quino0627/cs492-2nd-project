@@ -30,13 +30,15 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal"
+                                android:paddingTop="10dp"
                         >
 
                                 <android.support.v7.widget.AppCompatTextView
                                         android:id="@+id/my_profile_title"
                                         android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
+                                        android:layout_height="30dp"
                                         android:layout_margin="8dp"
+
 
                                         android:gravity="left"
                                         android:text="My Profile"
@@ -88,6 +90,14 @@
                                         android:text="000-0000-0000"
                                         android:textColor="@android:color/darker_gray"
 
+                                />
+
+                                <Button
+                                        android:layout_width="100dp"
+                                        android:layout_height="match_parent"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintTop_toBottomOf="@+id/my_profile_title"
+                                        android:text="My Posts"
                                 />
                         </android.support.constraint.ConstraintLayout>
 

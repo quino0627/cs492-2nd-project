@@ -35,9 +35,9 @@ class UploadPostActivity : AppCompatActivity() {
     lateinit var retrofitApi:RetrofitApi
     lateinit var editContent:EditText
     lateinit var btnSave:Button
-    lateinit var tag1:TextView
-    lateinit var tag2:TextView
-    lateinit var tag3:TextView
+//    lateinit var tag1:TextView
+//    lateinit var tag2:TextView
+//    lateinit var tag3:TextView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,9 +57,9 @@ class UploadPostActivity : AppCompatActivity() {
         }
         picture_uri = Uri.parse(Picture)
         editContent = findViewById(R.id.editContent)
-        tag1 = findViewById(R.id.tag1)
-        tag2 = findViewById(R.id.tag2)
-        tag3 = findViewById(R.id.tag3)
+        //tag1 = findViewById(R.id.tag1)
+        //tag2 = findViewById(R.id.tag2)
+        //tag3 = findViewById(R.id.tag3)
         btnSave = findViewById(R.id.upload_btn)
 
         retrofitApi = APIUtils.getUserService()
@@ -83,7 +83,7 @@ class UploadPostActivity : AppCompatActivity() {
                     var post = Post()
                     post.uploader_id = MainActivity.myFBUserId
                     post.setPictureUrl(encoder(bitmap))
-                    post.setTags(arrayOf(tag1.text.toString(), tag2.text.toString(), tag3.text.toString()))
+                    post.setTags(arrayOf("I WILL", "IMPLEMENT", "LATER"))
                     post.contents = editContent.text.toString()
                     addPost(post)
 
