@@ -122,12 +122,10 @@ class HomeActivity: Fragment(){
         var call = retrofitApi.getTimeLine(MainActivity.myFBUserId)
         call.enqueue(object:Callback<List<Post>>{
             override fun onResponse(call: Call<List<Post>>, response: Response<List<Post>>) {
-                Log.d("IN THE CALLBACK", "asdf")
                 if (response.isSuccessful){
-                    Log.d("IN THE IF", "asdf")
                     postList = response.body() as MutableList<Post>
                     postList.reverse()
-                    toast("Post Load Successfully!")
+
                     // Log.e("ASDFASDF",postList[0].uploader_name.toString())
                     val adapter = PostItemAdapter(postList, (activity as Context?)!!)
                     val formanage = LinearLayoutManager(activity, LinearLayout.VERTICAL, false)
