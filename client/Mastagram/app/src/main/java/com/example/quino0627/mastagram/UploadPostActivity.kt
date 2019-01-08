@@ -1,6 +1,7 @@
 package com.example.quino0627.mastagram
 
 import android.app.PendingIntent.getActivity
+import android.app.ProgressDialog
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -8,10 +9,6 @@ import android.support.v7.app.ActionBar
 import android.util.Base64
 import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
 import com.example.quino0627.mastagram.Model.Post
 import kotlinx.android.synthetic.main.activity_upload_post.*
 import org.jetbrains.anko.toast
@@ -24,6 +21,8 @@ import android.graphics.Bitmap
 import android.content.Intent
 import android.provider.MediaStore.Images.Media.getBitmap
 import android.support.design.widget.TabLayout
+import android.view.View.*
+import android.widget.*
 import java.io.FileNotFoundException
 import java.io.IOException
 import com.example.quino0627.mastagram.MainActivity
@@ -56,7 +55,7 @@ class UploadPostActivity : AppCompatActivity() {
             Picture = "file://"+Picture
         }
         picture_uri = Uri.parse(Picture)
-        editContent = findViewById(R.id.editContent)
+        editContent = findViewById<EditText>(R.id.editContent)
         //tag1 = findViewById(R.id.tag1)
         //tag2 = findViewById(R.id.tag2)
         //tag3 = findViewById(R.id.tag3)
@@ -80,7 +79,6 @@ class UploadPostActivity : AppCompatActivity() {
                 e.printStackTrace()
             }
 
-            toast("CLICKED")
             var post = Post()
             post.uploader_id = MainActivity.myFBUserId
             post.setPictureUrl(encoder(bitmap))
@@ -95,6 +93,23 @@ class UploadPostActivity : AppCompatActivity() {
     fun addPost(post:Post){
         Log.d("ADDPOST", "ISCLICKED")
         val call = retrofitApi.addPost(post)
+
+//        final ProgressDialog progressDoalog;
+//////        progressDoalog = new ProgressDialog(MainActivity.this);
+//////        progressDoalog.setMax(100);
+//////        progressDoalog.setMessage("Its loading....");
+//////        progressDoalog.setTitle("ProgressDialog bar example");
+//////        progressDoalog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+//////        // show it
+//////        progressDoalog.show();
+        var progressDialog = ProgressDialog(this)
+//        progressDialog.max = 100
+        progressDialog.setMessage("태그를 생성하고 있어요...")
+        progressDialog.setTitle("업로드 중")
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        //progressDialog.show()
+        findViewById<ProgressBar>(R.id.progressbar).visibility= VISIBLE
+
         call.enqueue(object:Callback<Post>{
             override fun onFailure(call: Call<Post>, t: Throwable) {
                 Log.e("ERROR: ", t.message)
@@ -102,10 +117,12 @@ class UploadPostActivity : AppCompatActivity() {
 
             override fun onResponse(call: Call<Post>, response: Response<Post>) {
                 if(response.isSuccessful()){
-                    toast("Post Uploaded Successfully!")
+                    toast("업로드 완료!!")
                     //int position = 1;
                     //getSupportActionBar().setSelectedNavigationItem(position);
                     clicked = false;
+                    findViewById<ProgressBar>(R.id.progressbar).visibility= GONE
+                    //progressDialog.dismiss()
                     finish()
                 }
             }

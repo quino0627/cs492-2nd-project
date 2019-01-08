@@ -14,6 +14,8 @@
         android:weightSum="1"
         tools:context=".UploadPostActivity">
 
+
+
     <android.support.v7.widget.Toolbar
             app:title="Upload posts!"
             style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
@@ -28,6 +30,9 @@
             android:layout_gravity="center"
     />
 
+
+
+
     <LinearLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/paintViewLayout"
@@ -38,6 +43,8 @@
             android:layout_below="@+id/my_toolbar"
             android:layout_height="match_parent"
             >
+
+
         <ImageView
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"
@@ -110,4 +117,12 @@
             android:orientation="horizontal">
         <Button android:id="@+id/upload_btn" android:textColor="@android:color/white" android:textSize="16sp" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:background="@drawable/rounded_corner_submit" android:text="UPLOAD"/>
     </LinearLayout>
+
+    <ProgressBar
+            android:id="@+id/progressbar"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone" />
 </RelativeLayout>

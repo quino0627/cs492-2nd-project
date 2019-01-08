@@ -75,7 +75,6 @@ class MyPostsActivity : Fragment() , MyPostsAdapter.OnItemSelectedListener{
 
                     postList = response.body() as MutableList<Post>
                     postList.reverse()
-                    toast("MYPOST SIZE IS "+postList.size)
                     // Log.e("ASDFASDF",postList[0].uploader_name.toString())
 
                     val adapter = MyPostsAdapter(postList, activity!!, this@MyPostsActivity)
@@ -105,7 +104,6 @@ class MyPostsActivity : Fragment() , MyPostsAdapter.OnItemSelectedListener{
                 if (response.isSuccessful){
                     postList = response.body() as MutableList<Post>
                     postList.reverse()
-                    toast("Post Load Successfully!")
                     // Log.e("ASDFASDF",postList[0].uploader_name.toString())
 
                     val adapter = MyPostsAdapter(postList, activity!!, this@MyPostsActivity)

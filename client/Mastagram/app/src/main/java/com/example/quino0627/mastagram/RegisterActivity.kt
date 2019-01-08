@@ -65,7 +65,7 @@ class RegisterActivity : AppCompatActivity() {
 
                     override fun onResponse(call: Call<User>, response: Response<User>) {
                         if(response.isSuccessful()){
-                            toast("User Registered Successfully!")
+                            toast("회원가입 완료!!")
                             Log.e("CALL", call.toString())
                             finish()
                         }
