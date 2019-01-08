@@ -12,6 +12,8 @@ public interface RetrofitApi {
 
  @POST("api/posts/create")
     Call<Post> addPost(@Body Post post);
+ @GET("api/posts/delete/{post_id}")
+    Call<Post> deletePost(@Path("post_id") String post_id);
 
  @GET("api/posts/all")
     Call<List<Post>> getPosts();

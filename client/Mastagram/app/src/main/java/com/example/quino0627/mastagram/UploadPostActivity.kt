@@ -105,7 +105,6 @@ class UploadPostActivity : AppCompatActivity() {
                     toast("Post Uploaded Successfully!")
                     //int position = 1;
                     //getSupportActionBar().setSelectedNavigationItem(position);
-
                     clicked = false;
                     finish()
                 }

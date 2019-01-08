@@ -10,6 +10,9 @@ public class Post {
     @SerializedName("pictureUrl")
     @Expose
     private String pictureUrl;
+    @SerializedName("post_id")
+    @Expose
+    private String post_id;
 
     @SerializedName("uploader_name")
     @Expose
@@ -39,10 +42,15 @@ public class Post {
         return pictureUrl;
     }
 
+
+
     public void setPictureUrl(String pictureUrl){
         this.pictureUrl = pictureUrl;
     }
-
+    public  String getPost_id() { return post_id; }
+    public void setPost_id(String post_id) {
+        this.post_id = post_id;
+    }
     public String getUploader_name(){
         return uploader_name;
     }

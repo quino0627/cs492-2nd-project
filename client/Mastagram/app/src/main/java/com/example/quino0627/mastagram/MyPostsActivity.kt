@@ -78,7 +78,7 @@ class MyPostsActivity : Fragment() , MyPostsAdapter.OnItemSelectedListener{
                     toast("MYPOST SIZE IS "+postList.size)
                     // Log.e("ASDFASDF",postList[0].uploader_name.toString())
 
-                    val adapter = MyPostsAdapter(postList, activity!!)
+                    val adapter = MyPostsAdapter(postList, activity!!, this@MyPostsActivity)
                     val forManage = GridLayoutManager(activity, 3, GridLayout.VERTICAL, false)
                     adapter.setClickListener(this@MyPostsActivity)
                     recyclerView.layoutManager = forManage
@@ -108,7 +108,7 @@ class MyPostsActivity : Fragment() , MyPostsAdapter.OnItemSelectedListener{
                     toast("Post Load Successfully!")
                     // Log.e("ASDFASDF",postList[0].uploader_name.toString())
 
-                    val adapter = MyPostsAdapter(postList, activity!!)
+                    val adapter = MyPostsAdapter(postList, activity!!, this@MyPostsActivity)
                     val formanage = GridLayoutManager(activity, 3, GridLayout.VERTICAL, false)
                     adapter.setClickListener(this@MyPostsActivity)
                     recyclerView.layoutManager = formanage
