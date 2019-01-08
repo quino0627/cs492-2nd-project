@@ -23,9 +23,10 @@ import android.provider.MediaStore
 import android.graphics.Bitmap
 import android.content.Intent
 import android.provider.MediaStore.Images.Media.getBitmap
+import android.support.design.widget.TabLayout
 import java.io.FileNotFoundException
 import java.io.IOException
-
+import com.example.quino0627.mastagram.MainActivity
 import java.io.ByteArrayOutputStream
 
 
@@ -34,11 +35,11 @@ class UploadPostActivity : AppCompatActivity() {
     lateinit var retrofitApi:RetrofitApi
     lateinit var editContent:EditText
     lateinit var btnSave:Button
-    lateinit var tag1:TextView
-    lateinit var tag2:TextView
-    lateinit var tag3:TextView
+//    lateinit var tag1:TextView
+//    lateinit var tag2:TextView
+//    lateinit var tag3:TextView
 
-
+    var clicked = false;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_upload_post)
@@ -56,36 +57,37 @@ class UploadPostActivity : AppCompatActivity() {
         }
         picture_uri = Uri.parse(Picture)
         editContent = findViewById(R.id.editContent)
-        tag1 = findViewById(R.id.tag1)
-        tag2 = findViewById(R.id.tag2)
-        tag3 = findViewById(R.id.tag3)
+        //tag1 = findViewById(R.id.tag1)
+        //tag2 = findViewById(R.id.tag2)
+        //tag3 = findViewById(R.id.tag3)
         btnSave = findViewById(R.id.upload_btn)
 
         retrofitApi = APIUtils.getUserService()
 
         btnSave.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
+        if(clicked==false) {
+         clicked = true;
+            var bitmap: Bitmap? = null
 
-                var bitmap: Bitmap? = null
 
+            try {
+                Log.d("I'm IN TRY", (bitmap == null).toString())
+                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), picture_uri)
+            } catch (e: FileNotFoundException) {
+                e.printStackTrace()
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
 
-                    try {
-                        Log.d("I'm IN TRY", (bitmap==null).toString())
-                        bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), picture_uri)
-                    } catch (e: FileNotFoundException) {
-                        e.printStackTrace()
-                    } catch (e: IOException) {
-                        e.printStackTrace()
-                    }
-
-                    toast("CLICKED")
-                    var post = Post()
-                    post.setPictureUrl(encoder(bitmap))
-                    post.setTags(arrayOf(tag1.text.toString(), tag2.text.toString(), tag3.text.toString()))
-                    post.myDate = "20181010"
-                    post.contents = editContent.text.toString()
-                    addPost(post)
-
+            toast("CLICKED")
+            var post = Post()
+            post.uploader_id = MainActivity.myFBUserId
+            post.setPictureUrl(encoder(bitmap))
+            post.setTags(arrayOf("I WILL", "IMPLEMENT", "LATER"))
+            post.contents = editContent.text.toString()
+            addPost(post)
+        }
             }
         })
     }
@@ -101,6 +103,10 @@ class UploadPostActivity : AppCompatActivity() {
             override fun onResponse(call: Call<Post>, response: Response<Post>) {
                 if(response.isSuccessful()){
                     toast("Post Uploaded Successfully!")
+                    //int position = 1;
+                    //getSupportActionBar().setSelectedNavigationItem(position);
+                    clicked = false;
+                    finish()
                 }
             }
 

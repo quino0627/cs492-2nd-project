@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
+<<<<<<< HEAD
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.Menu
@@ -18,16 +19,37 @@ import android.view.MenuItem
 import android.widget.LinearLayout
 import com.example.quino0627.mastagram.Login.LoginActivity
 import com.example.quino0627.mastagram.Model.Post
+=======
+import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
+import com.example.quino0627.mastagram.Login.LoginActivity
+>>>>>>> help
 import com.example.quino0627.mastagram.Model.RegisterCheck
 import com.facebook.AccessToken
+import com.facebook.CallbackManager
+import com.facebook.FacebookSdk
+import com.facebook.appevents.AppEventsLogger
 
 import kotlinx.android.synthetic.main.activity_main.*
+<<<<<<< HEAD
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.support.v4.toast
 import org.jetbrains.anko.toast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+=======
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import com.facebook.FacebookException
+import com.facebook.login.LoginResult
+import com.facebook.FacebookCallback
+import com.facebook.login.LoginManager
+
+
+>>>>>>> help
 
 class MainActivity : AppCompatActivity() {
 
@@ -40,16 +62,22 @@ class MainActivity : AppCompatActivity() {
      * [android.support.v4.app.FragmentStatePagerAdapter].
      */
     private var mSectionsPagerAdapter: SectionsPagerAdapter? = null
-    val MULTIPLE_PERMISSIONS = 10;
+    val MULTIPLE_PERMISSIONS = 10
     val permissions = arrayOf(Manifest.permission.READ_CONTACTS, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CALL_PHONE, Manifest.permission.SEND_SMS, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+<<<<<<< HEAD
 
     lateinit var retrofitApi: RetrofitApi
 
+=======
+    lateinit var callbackManager: CallbackManager
+    lateinit var retrofitApi: RetrofitApi
+>>>>>>> help
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+<<<<<<< HEAD
         retrofitApi = APIUtils.getUserService()
         var accessToken = AccessToken.getCurrentAccessToken()
         var isLogedIn = accessToken != null && !accessToken.isExpired()
@@ -80,6 +108,47 @@ class MainActivity : AppCompatActivity() {
         })
 //        var call = retrofitApi.posts
 //        call.enqueue()
+=======
+        FacebookSdk.sdkInitialize(applicationContext)
+        AppEventsLogger.activateApp(this)
+
+
+
+        retrofitApi = APIUtils.getUserService()
+        var accessToken = AccessToken.getCurrentAccessToken()
+        var isLogedIn = accessToken != null && !accessToken.isExpired
+        Log.d("ISLOGEDIN IS" , isLogedIn.toString())
+//        if (!isLogedIn) {
+//            val loginIntent = Intent(this@MainActivity, LoginActivity::class.java)
+//            startActivity(loginIntent)
+//        }
+//        else{
+//            Companion.myFBUserId = accessToken.userId
+//        }
+//
+//        var userId = accessToken.userId //이게 디비에 올라가서 유저_id 가 되고 이걸로 유저를 식별 유닉!
+//        Log.d("THIS IS USERID", userId.toString())
+//
+//        var call = retrofitApi.isRegistered(userId)
+//        call.enqueue(object: Callback<RegisterCheck> {
+//            override fun onResponse(call: Call<RegisterCheck>, response: Response<RegisterCheck>) {
+//                if (response.isSuccessful){
+//                    Log.d("userId is ",userId)
+//                    Log.d("RESULT IS?" , response.body()!!.result.toString())
+//                    if (response.body()!!.result == false){
+//                        val registerIntent = Intent(this@MainActivity, RegisterActivity::class.java)
+//                        startActivity(registerIntent)
+//                    }
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<RegisterCheck>, t: Throwable) {
+//                Log.e("fail to get BOOLEAN", t.message)
+//            }
+//
+//        })
+
+>>>>>>> help
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -95,6 +164,44 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        var tabLayout : TabLayout = findViewById(R.id.tabs)
+        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                val position = tab.position
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab) {}
+
+            override fun onTabReselected(tab: TabLayout.Tab) {}
+        })
+
+        if(tabLayout.selectedTabPosition == 1){
+            val tab = tabLayout.getTabAt(0)
+            tab!!.select()
+        }
+
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+        var accessToken = AccessToken.getCurrentAccessToken()
+        var isLogedIn = accessToken != null && !accessToken.isExpired
+        if (!isLogedIn) {
+            val loginIntent = Intent(this@MainActivity, LoginActivity::class.java)
+            startActivity(loginIntent)
+        }
+        else{
+            Companion.myFBUserId = accessToken.userId
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        callbackManager.onActivityResult(requestCode, resultCode, data)
+        super.onActivityResult(requestCode, resultCode, data)
+    }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -133,13 +240,16 @@ class MainActivity : AppCompatActivity() {
                 2->{
                     return FriendsActivity()
                 }
+                3->{
+                    return MyPostsActivity()
+                }
                 else -> return null
             }
         }
 
         override fun getCount(): Int {
             // Show 3 total pages.
-            return 3
+            return 4
         }
 
         override fun getPageTitle(position: Int) : CharSequence?{
@@ -147,13 +257,15 @@ class MainActivity : AppCompatActivity() {
                 0 -> return "HOME"
                 1 -> return "UPLOAD"
                 2 -> return "FRIENDS"
+                3->return "MYPOSTS"
             }
             return null
         }
     }
 
-
-
+    companion object {
+        var myFBUserId:String = "DEFAULT"
+    }
 
 
 }

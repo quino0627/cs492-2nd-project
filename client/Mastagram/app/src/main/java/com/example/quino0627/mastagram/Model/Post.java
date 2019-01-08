@@ -3,15 +3,24 @@ package com.example.quino0627.mastagram.Model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.lang.reflect.Array;
+
 public class Post {
 
     @SerializedName("pictureUrl")
     @Expose
     private String pictureUrl;
-
-    @SerializedName("uploader")
+    @SerializedName("post_id")
     @Expose
-    private String uploader = "woLoginTest";
+    private String post_id;
+
+    @SerializedName("uploader_name")
+    @Expose
+    private String uploader_name;
+
+    @SerializedName("uploader_id")
+    @Expose
+    private String uploader_id;
 
     @SerializedName("date")
     @Expose
@@ -23,7 +32,7 @@ public class Post {
 
     @SerializedName("tag")
     @Expose
-    private String[] tag;
+    public String[] tag = {"THIS IS","NOT YET","DEFINED"};
 
     @SerializedName("__v")
     @Expose
@@ -33,16 +42,29 @@ public class Post {
         return pictureUrl;
     }
 
+
+
     public void setPictureUrl(String pictureUrl){
         this.pictureUrl = pictureUrl;
     }
-
-    public String getUploader(){
-        return uploader;
+    public  String getPost_id() { return post_id; }
+    public void setPost_id(String post_id) {
+        this.post_id = post_id;
+    }
+    public String getUploader_name(){
+        return uploader_name;
     }
 
-    public void setUploader(String uploader){
-        this.uploader = uploader;
+    public void setUploader_name(String uploader_name){
+        this.uploader_name = uploader_name;
+    }
+
+    public String getUploader_id(){
+        return uploader_id;
+    }
+
+    public void setUploader_id(String uploader_id){
+        this.uploader_id = uploader_id;
     }
 
     public String getMyDate(){
@@ -61,8 +83,8 @@ public class Post {
         this.contents = contents;
     }
 
-    public String getTags(){
-        return contents;
+    public String[] getTags(){
+        return tag;
     }
 
     public void setTags(String[] tag){
