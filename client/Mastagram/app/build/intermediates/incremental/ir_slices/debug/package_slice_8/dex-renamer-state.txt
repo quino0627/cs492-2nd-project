@@ -1,4 +1,0 @@
-#Sun Jan 06 04:08:33 KST 2019
-base.0=/Users/quino0627/Documents/Android/cs492-2nd-project/client/Mastagram/app/build/intermediates/transforms/dexMerger/debug/8
-path.0=classes.dex
-renamed.0=classes.dex
