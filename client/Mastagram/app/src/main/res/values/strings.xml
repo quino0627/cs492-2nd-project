@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Maestagram</string>
+    <string name="tab_text_1">Timeline</string>
+    <string name="tab_text_2">Upload</string>
+    <string name="tab_text_3">Friends</string>
+    <string name="tab_text_4">MyPost</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="facebook_app_id">521067828414338</string>
+    <string name="fb_login_protocol_scheme">fb521067828414338</string>
+    <string name="title_activity_login">Sign in</string>
+
+
+</resources>
